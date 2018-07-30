@@ -128,6 +128,8 @@ protected:
 
 	bool   m_bNearMode;
 
+    std::vector<mat4f> m_recordedTrajectory;
+
 
 private:
 	void computePointCurrentPointCloud(PointCloudf& pc, const mat4f& transform = mat4f::identity()) const;
@@ -141,7 +143,7 @@ private:
 	std::list<float*> m_recordedDepthData;
 	std::list<vec4uc*>	m_recordedColorData;
 
-	std::vector<mat4f> m_recordedTrajectory;
+	
 	std::list<PointCloudf> m_recordedPoints;
 
 	//new recording version

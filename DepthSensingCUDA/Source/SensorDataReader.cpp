@@ -4,6 +4,7 @@
 #include "SensorDataReader.h"
 #include "GlobalAppState.h"
 #include "MatrixConversion.h"
+#include "DepthSensing.h"
 
 #ifdef SENSOR_DATA_READER
 
@@ -91,6 +92,27 @@ void SensorDataReader::loadNextSensFile() {
 			GlobalAppState::get().s_playData = false;
 			std::cout << "binary dump sequence complete - press space to run again" << std::endl;
 			m_currFrame = 0;
+
+            std::ofstream trajFile(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "trajectoryVoxel.txt");
+            for (const auto& pose : m_recordedTrajectory) {
+                Eigen::Matrix3f rotation;
+                for (int col = 0; col < 3; col++) {
+                    for (int row = 0; row < 3; row++) {
+                        rotation(row, col) = pose.at(row, col);
+                    }
+                }
+                //std::cout << rotation << std::endl;
+                Eigen::Quaternionf q(rotation);
+                float tx = pose.at(0, 3);
+                float ty = pose.at(1, 3);
+                float tz = pose.at(2, 3);
+
+                trajFile << tx << " " << ty << " " << tz << " " <<
+                    q.x() << " " << q.y() << " " << q.z() << " " << q.w() << "\n";
+            }
+            trajFile.close();
+
+            StopScanningAndExtractIsoSurfaceMC("./Scans/scan.ply", true);
 		}
 	}
 

@@ -232,7 +232,7 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
 }
 
 
-void StopScanningAndExtractIsoSurfaceMC(const std::string& filename, bool overwriteExistingFile /*= false*/)
+void StopScanningAndExtractIsoSurfaceMC(const std::string& filename, bool overwriteExistingFile)
 {
 	//g_sceneRep->debugHash();
 	//g_chunkGrid->debugCheckForDuplicates();
@@ -263,8 +263,11 @@ void StopScanningAndExtractIsoSurfaceMC(const std::string& filename, bool overwr
 
 	std::cout << "Mesh generation time " << t.getElapsedTime() << " seconds" << std::endl;
 
+    
+
 	//g_sceneRep->debugHash();
 	//g_chunkGrid->debugCheckForDuplicates();
+    exit(0);
 }
 
 void ResetDepthSensing()
@@ -1138,7 +1141,7 @@ int main(int argc, char** argv)
 		else {
 			std::cout << "usage: DepthSensing [fileNameDescGlobalApp] [fileNameDescGlobalTracking]" << std::endl;
 			//fileNameDescGlobalApp = "zParametersDefault.txt";
-			fileNameDescGlobalApp = "zParametersManolisScan.txt";
+			fileNameDescGlobalApp = "zParametersDefault.txt";
 			
 			fileNameDescGlobalTracking = "zParametersTrackingDefault.txt";
 		}
