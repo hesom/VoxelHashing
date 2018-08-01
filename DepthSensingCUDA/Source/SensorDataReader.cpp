@@ -93,7 +93,10 @@ void SensorDataReader::loadNextSensFile() {
 			std::cout << "binary dump sequence complete - press space to run again" << std::endl;
 			m_currFrame = 0;
 
-            std::ofstream trajFile(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "trajectoryVoxel.txt");
+            if (!util::directoryExists(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "/VoxelHashing")) {
+                util::makeDirectory(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "/VoxelHashing");
+            }
+            std::ofstream trajFile(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "/VoxelHashing/trajectory.txt");
             for (const auto& pose : m_recordedTrajectory) {
                 Eigen::Matrix3f rotation;
                 for (int col = 0; col < 3; col++) {
@@ -112,7 +115,7 @@ void SensorDataReader::loadNextSensFile() {
             }
             trajFile.close();
 
-            StopScanningAndExtractIsoSurfaceMC("./Scans/scan.ply", true);
+            StopScanningAndExtractIsoSurfaceMC(util::directoryFromPath(GlobalAppState::get().s_binaryDumpSensorFile.at(0)) + "/VoxelHashing/reconstruction.ply", true);
 		}
 	}
 
