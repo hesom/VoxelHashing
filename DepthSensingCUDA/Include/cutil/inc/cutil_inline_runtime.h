@@ -74,7 +74,7 @@ inline void __cutilExit(int argc, char **argv)
         printf("\nPress ENTER to exit...\n");
         fflush( stdout);
         fflush( stderr);
-        getchar();
+        //getchar();
     }
     exit(EXIT_SUCCESS);
 }
@@ -269,7 +269,7 @@ inline void __cudaSafeCallNoSync( cudaError err, const char *file, const int lin
     if( cudaSuccess != err) {
         FPRINTF((stderr, "%s(%i) : cudaSafeCallNoSync() Runtime API error %d : %s.\n",
                 file, line, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -279,7 +279,7 @@ inline void __cudaSafeCall( cudaError err, const char *file, const int line )
     if( cudaSuccess != err) {
 		FPRINTF((stderr, "%s(%i) : cudaSafeCall() Runtime API error %d: %s.\n",
                 file, line, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -290,7 +290,7 @@ inline void __cudaSafeThreadSync( const char *file, const int line )
     if ( cudaSuccess != err) {
         FPRINTF((stderr, "%s(%i) : cudaDeviceSynchronize() Runtime API error %d: %s.\n",
                 file, line, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -312,7 +312,7 @@ inline void __cufftSafeCall( cufftResult err, const char *file, const int line )
             case CUFFT_UNALIGNED_DATA: FPRINTF((stderr, "CUFFT_UNALIGNED_DATA\n"));
             default: FPRINTF((stderr, "CUFFT Unknown error code\n"));
         }
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -339,7 +339,7 @@ inline void __curandSafeCall( curandStatus_t err, const char *file, const int li
             case CURAND_STATUS_INTERNAL_ERROR:      FPRINTF((stderr, "CURAND_STATUS_INTERNAL_ERROR"));
             default: FPRINTF((stderr, "CURAND Unknown error code\n"));
         }
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -350,7 +350,7 @@ inline void __cutilCheckError( CUTBoolean err, const char *file, const int line 
     if( CUTTrue != err) {
         FPRINTF((stderr, "%s(%i) : CUTIL CUDA error.\n",
                 file, line));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -361,7 +361,7 @@ inline void __cutilGetLastError( const char *errorMessage, const char *file, con
     if( cudaSuccess != err) {
         FPRINTF((stderr, "%s(%i) : cutilCheckMsg() CUTIL CUDA error : %s : (%d) %s.\n",
                 file, line, errorMessage, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -372,7 +372,7 @@ inline void __cutilGetLastErrorAndSync( const char *errorMessage, const char *fi
     if( cudaSuccess != err) {
         FPRINTF((stderr, "%s(%i) : cutilCheckMsg() CUTIL CUDA error : %s : (%d) %s.\n",
                 file, line, errorMessage, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 
@@ -380,7 +380,7 @@ inline void __cutilGetLastErrorAndSync( const char *errorMessage, const char *fi
     if( cudaSuccess != err) {
         FPRINTF((stderr, "%s(%i) : cutilCheckMsg cudaDeviceSynchronize error: %s : (%d) %s.\n",
                 file, line, errorMessage, (int)err, cudaGetErrorString( err ) ));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -390,7 +390,7 @@ inline void __cutilSafeMalloc( void *pointer, const char *file, const int line )
     if( !(pointer)) {
         FPRINTF((stderr, "%s(%i) : cutilSafeMalloc host malloc failure\n",
                 file, line));
-		getchar();
+		//getchar();
         exit(-1);
     }
 }
@@ -401,7 +401,7 @@ inline int cutilDeviceInit(int ARGC, char **ARGV)
     cutilSafeCallNoSync(cudaGetDeviceCount(&deviceCount));
     if (deviceCount == 0) {
         FPRINTF((stderr, "CUTIL CUDA error: no devices supporting CUDA.\n"));
-		getchar();
+		//getchar();
         exit(-1);
     }
     int dev = 0;
@@ -419,7 +419,7 @@ inline int cutilDeviceInit(int ARGC, char **ARGV)
     cutilSafeCallNoSync(cudaGetDeviceProperties(&deviceProp, dev));
     if (deviceProp.major < 1) {
         FPRINTF((stderr, "cutil error: GPU device does not support CUDA.\n"));
-		getchar();
+		//getchar();
         exit(-1);                                                  \
     }
     printf("> Using CUDA device [%d]: %s\n", dev, deviceProp.name);

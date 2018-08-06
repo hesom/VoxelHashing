@@ -1223,13 +1223,13 @@ int main(int argc, char** argv)
 	}
 	catch (const std::exception& e)
 	{
-		MessageBoxA(NULL, e.what(), "Exception caught", MB_ICONERROR);
-		exit(EXIT_FAILURE);
+		//MessageBoxA(NULL, e.what(), "Exception caught", MB_ICONERROR);
+        return EXIT_FAILURE;
 	}
 	catch (...)
 	{
-		MessageBoxA(NULL, "UNKNOWN EXCEPTION", "Exception caught", MB_ICONERROR);
-		exit(EXIT_FAILURE);
+		//MessageBoxA(NULL, "UNKNOWN EXCEPTION", "Exception caught", MB_ICONERROR);
+        return EXIT_FAILURE;
 	}
 
 	//this is a bit of a hack due to a bug in std::thread (a static object cannot join if the main thread exists)
